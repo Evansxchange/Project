@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ROCK, PAPER & SCISSOR</title>
+
+<style>
+
+*{
+Margin: 0;
+Padding: 0;
+box-sizing: border-box;
+font-family: Verdana, Geneva, Tahoma, sans-serif;
+font-size: 16px;
+}
+
+.head{
+Text-align: center;
+Background: gray;
+Color:white;
+Font-size: 30px;
+font-weight: bold;
+}
+
+.head h1{
+Animation: fade 2s infinite;
+Padding-block: .5rem;
+font-size: 30px;
+}
+
+@keyframes fade{
+From{
+Opacity:1;
+Color: gold;
+}
+To{
+Opacity: .5;
+Color: white;
+}
+}
+
+.result{
+Position: relative;
+Width: 100%;
+Display: none;
+Justify-content: center;
+Align-items: center;
+Margin: 5rem 0 2rem;
+Transition: ease 250ms;
+
+}
+
+
+
+.display{
+Position: relative;
+Display: flex;
+Flex-direction: column;
+Min-Width: 90vw;
+Height: 20rem;
+Background-color: white;
+Border-radius: 10px;
+Color: white;
+Display: flex;
+Justify-content: center;
+Align-items: center;
+Place-content: center;
+Box-shadow: 0 0 6px gray;
+Overflow: hidden;
+Animation:  250ms infinite;
+pointer-events: none;
+}
+
+@keyframes losser{
+From{
+ Background-color: red;
+}
+To{
+ Background-color: white;
+ 
+}
+}
+
+@keyframes winner{
+From{
+ Background-color: green;
+}
+To{
+ Background-color: white;
+ 
+}
+}
+.points{
+Position: absolute;
+Display: grid;
+Grid-template-columns: 1fr 1fr 1fr;
+Justify-content: space-between;
+Padding: 2rem 0;
+Width: 80%;
+Left: 10%;
+Top: 0;
+Z-index:3;
+}
+
+.flash{
+Position: absolute;
+Left: 1%;
+Top: 35%;
+Width: 1rem;
+Height: 1rem;
+Background-color: red;
+Border-radius: 100%;
+animation: blink 2s linear infinite;     
+transition: none;
+}
+
+@keyframes blink{
+from{
+  Transform: scale(1);
+  Opacity: 1;
+  Color:green;
+  transition: none;
+}
+to{
+Transform: scale(1);
+Opacity: 0;
+Color:green;
+transition: none;
+
+
+}
+} 
+
+.opponent{
+Text-align: left;
+}
+
+#count-down{
+Text-align:center;
+Margin-inline: .2rem
+}
+
+.time{
+Display: flex;
+Align-items: center;
+Justify-content: center;
+Color: green;
+}
+
+.user{
+Padding-inline: 1rem;
+}
+
+.user h5{
+Font-size: 22px;
+font-weight: bold;
+Margin-bottom: 1rem;
+Text-align: center;
+}
+
+.user p{
+Font-size: 20px;
+Font-weight: bold;
+Text-align: center;
+}
+
+
+.computer{
+Text-align: center;
+padding-top: 2rem;
+font-size: 55px;
+Color: green;
+text-transform: uppercase;
+Padding: 1rem;
+Animation: scale 2s linear infinite;
+}
+
+@keyframes scale{
+From{
+Opacity: 0;
+}
+To{
+Transform: scale(1);
+Opacity: 1;
+
+}
+}
+
+#score{
+Text-align:center;
+Width: 100%;
+Font-size: 70px;
+text-transform: capitalize;
+}
+
+Footer{
+  display: flex;
+  justify-content: space-around;
+  padding-block: .3rem;
+Text-align: center;
+Position: fixed;
+Bottom: 0%;
+Left: 50%;
+Transform: translate(-50%);
+Color: white;
+Background-color: gray;
+Width: 100%;
+Font-size: 20px;
+font-weight: 600;
+}
+
+.button{
+Width: 100%;
+Display: none;
+Justify-content: center;
+Align-items: center;
+Transition: ease 250ms;
+
+}
+
+Button{
+Width: 10rem;
+Height: 4rem;
+Margin-inline:1rem;
+Font-size: 22px;
+Font-weight: bold;
+Color: green;
+Border-radius: 10px;
+Border: none;
+Transition: ease-out 650ms;
+Box-shadow: 0 0 6px gray;
+outline: none;
+cursor: pointer;
+}
+
+Button:focus,
+Button:hover{
+Background-color: green;
+Color: white;
+Transition: ease 750ms;
+transform-style: preserve-3d;
+transform: rotateX(30deg);
+Box-shadow: 0 6px 6px gray;
+}
+
+.scissor{
+ color: rgb(13, 13, 80);
+}
+
+.scissor:focus,
+.scissor:hover{
+Background-color: rgb(13, 13, 80);
+Color: white;
+Transition: ease 250ms;
+}
+
+.paper{
+ color: rgb(108, 14, 14);
+}
+
+.btn-stop:hover{
+ background-color: red;
+ color: white !important;
+}
+
+.paper:focus,
+.paper:hover{
+Background-color: rgb(108, 14, 14);
+Color: white;
+Transition: ease 250ms;
+}
+
+.start{
+Position: absolute;
+Width: 100%; 
+Top: 20%;
+Left: 50%;
+Transform: translate(-50%);    
+Transition: ease 250ms;
+Text-align: center;
+}
+
+.start h1{
+Font-size: 30px;
+Font-weight: bold;
+}
+
+.start p{
+Font-size: 25px;
+Margin-top: 1rem;
+}
+
+.btn-start{
+Margin-top: 2rem;
+}
+
+.start h2{
+Color: red;
+Font-size: 25px;
+Font-weight: bold;
+Margin-bottom: 2rem;
+}
+
+.fun{
+Margin-top: 3rem;
+Font-size: 40px;
+Color: white ;
+Width: fit-content;
+Margin-inline: auto;
+Padding: 1rem;
+Border-radius: 10px;
+Box-shadow: 0 0 6px blue;
+Animation: bright 4s linear infinite;
+}
+
+@keyframes bright{
+0%{
+Box-shadow: 0 0 6px blue;
+Transform: scale(1);
+Color: blue;
+perspective: 100px;
+}
+50%{
+Transform: scale(1.1);
+Color: red;
+transform-style: preserve-3d;
+transform: rotateX(65deg);
+Box-shadow: 0 20px 6px red;
+
+}
+100%{
+Box-shadow: 0 0 6px blue;
+Transform: scale(1);
+Box-shadow: 0 0 6px green;
+Color: green;
+}
+}
+
+@keyframes bright1{
+0%{
+Box-shadow: 0 0 6px blue;
+Transform: scale(1);
+Color: blue;
+}
+50%{
+Box-shadow: 0 0 6px red;
+Transform: scale(1.01);
+Color: red;
+
+}
+100%{
+Box-shadow: 0 0 6px blue;
+Transform: scale(1);
+Box-shadow: 0 0 6px green;
+Color: green;
+}
+}
+
+.stop{
+Position: relative;
+Display: none;
+Width: 100%;
+Text-align: center;
+Margin-top: 2rem;
+Justify-content: center;
+Transition: ease 250ms;
+}
+
+#position-cu{
+Font-weight: bold;
+Font-size: 28px;
+}
+
+#position-me{
+Font-weight: bold;
+Font-size: 28px;
+}
+
+.btn-stats{
+Display: block;
+}
+
+.stats{
+
+background: gray;
+Display: flex ;
+Flex-direction: column;
+Justify-content: center;
+Align-items: center;
+width: 50% ;
+Height: fit-content ;
+margin-inline: auto;
+Margin-top: 1rem;
+Border-radius: 10px;
+Box-shadow: 0 0 6px black;
+Display: none;
+Padding-bottom: 2rem;
+
+}
+
+.stats h1{
+Color:gold;
+Font-size: 45px;
+Margin-inline: auto;
+Text-align: center;
+Padding-block: 4rem;
+text-transform: uppercase;
+Animation: stat 3s linear infinite;
+}
+
+@keyframes stat{
+0%{
+Opacity: 1;
+Color: yellow;
+}
+80%{
+Opacity: .6;
+Color: red;
+}
+0%{
+Opacity: 1;
+Color: gold;
+}
+}
+
+.stats p{
+Font-size: 32px;
+Font-weight: bold;
+Margin-top: 1rem;
+Padding-inline: 2rem;
+Display: flex;
+Align-items: Center;
+Color: white;
+Justify-content: space-between;
+}
+
+.stats h5{
+Font-size: 32px;
+Font-weight: bold;
+Margin-top: 1rem;
+Padding-inline: 2rem;
+Display: grid;
+Grid-template-columns: 84% 10% 6%;
+Align-items: Center;
+Color: white;
+Justify-content: space-between;
+}
+
+.stat h5 span{
+Padding-left: .8rem;
+}
+
+.stats span{
+Display: flex;
+}
+
+.stats .win{
+  Font-size: 32px ;
+  Font-weight: bold;
+}
+
+.stats .player{
+  Font-size: 32px ;
+  Font-weight: bold;
+}
+
+.arrow{
+  rotate: 270deg;
+  animation: move 500ms linear infinite;
+  color: green;
+  font-weight: bold;
+  text-shadow: 0 0 2px rgb(255, 0, 0, .5);
+}
+
+@keyframes move{
+  from{
+    transform-style: preserve-3d;
+   transform: rotatey(45deg);
+  }
+  to{
+    transform: translatex(1.5rem);
+  
+  }
+}
+
+
+.btn-back{
+Display: none;
+}
+
+.win{
+Margin-left: 0 !important;
+
+}
+
+#game{
+Justify-content: space-between;
+}
+
+.history{
+  display: flex;
+  margin-inline: auto;
+  border-radius: 10px;
+
+  padding: .3rem;
+  margin-top: 2rem;
+  animation: bright1 2s infinite;
+  width: fit-content;
+}
+
+.history a{
+  text-decoration: none;
+  color: gray;
+}
+
+
+@media (width < 70rem){
+.display{
+Height: 12rem !important;
+}
+
+.result{
+Width: 90%;
+Margin-inline: auto;      
+}
+
+.head{
+Font-size: 14px;
+}
+.computer{
+margin-top: 3rem;
+font-size: clamp(15px, 3vw, 25px) !important;          
+}
+
+#score{
+Font-size: 20px !important ;
+}
+
+.user h5{
+Font-size: 12px !important ;
+
+}
+
+.user p{
+Font-size: 10px !important ;     
+}
+
+Button{
+Width: 7rem ;
+Height: 2.5rem !important;
+Font-size: 16px !important;
+}
+
+.stats{
+Width: 80% !important;
+}
+
+.start p{
+Font-size: 15px;
+Margin-top: 1rem;
+}
+}
+
+</style>
+</head>
+<body>
+<div class="head">
+
+<h1>
+Rock, Paper and Scissor... 
+</h1>
+
+</div>
+
+<div class="result">
+
+<div class="points">
+  
+  <div class="opponent | user ">
+      <h5>
+          Computer
+      </h5>                               
+      
+      <p class="record-computer">
+              0
+      </p>
+      <p id="position-cu">
+          
+      </p>
+  </div>
+  
+   <div class="time">
+       
+          
+       
+          <p id="minutes">
+              00
+          </p>
+          
+          <p id="count-down">
+              0
+          </p>            
+          
+          <p id="ms">
+              00
+          </p>       
+   
+     
+      </div>  
+  
+   <div class="you | user ">
+      <h5 class="me">
+        Me
+      </h5>
+      <p class="record-me">
+              0
+      </p>
+      
+       <p id="position-me">
+          
+      </p>
+  </div>
+  
+  <div class="flash">
+      
+  </div>
+  
+</div>
+
+<p class="display">
+
+
+
+<span class="computer" id="computer">start game... Computer 
+is waiting. </span>
+
+<span id="score"> </span>
+
+
+
+</p>
+
+
+
+</div>
+
+<div class="button">
+
+<button class="rock">
+Rock
+</button>
+
+<button class="scissor">
+Scissor
+</button>
+
+<button class="paper">
+Paper
+</button>
+
+
+</div>
+
+<footer>
+
+<P>copyright © Evans</P>
+<P>Version: 1.1</P>
+<p>contact: 08160975161</p>
+
+</footer>
+
+
+<div class="start">
+<h2>
+Rules of the game...                           
+</h2>
+
+<p>
+1.  Rock beats scissor.., Scissor beats paper.., Paper beats rock. <br>(e.g if you pick scissor and computer picks paper, <br> you wins but if computer picks rock while you pick scissor computer wins.)
+</p>
+
+<p>
+2.  First to score 20 points wins.
+
+</p>
+
+<p>
+3.  Game ends when one of the players scores 20 points or on timeout.
+</p>
+
+<p>
+4. Game time is 2mins.
+</p>
+
+<p>
+5. Computer automatically wins on timeout. 
+</p>
+
+
+<button class="btn-start">
+START GAME
+</button>
+
+<h1 class="fun">
+ Have fun.
+</h1>
+
+<h2 class="history">
+  <a href="https://en.wikipedia.org/wiki/Rock_paper_scissors">Read Game History </a>
+</h2>
+<div class="arrow">
+  =>
+</div>
+</div>
+
+
+
+<div class="stop ">
+
+<button class="btn-start1">
+START
+</button>
+
+<button class="btn-stop">
+STOP
+</button>
+
+<button class="reset">
+RESET
+</button>
+
+<div class="btn-stats">
+<button class="btn-D-stat">
+   STATS
+</button> 
+<button class="btn-back">
+   BACK TO GAME
+</button>                                   
+</div>
+</div>
+
+
+<div class="stats">
+<h1>Stats</h1>
+<p >Your score: <span id='my-score' ></span></p>
+<p >Computer`s score: <span id='com-score' ></span></p>
+<p >Total score: <span id='total-score' ></span></p>
+<p >Score difference: <span id='score-d' ></span></p>
+<h5 id="game" >Game time: <span id="game-time" ></span> <span id='game-time1' ></span></h5>
+<p id='win'><span class="win" >Winner: </span><span id='winner-end' ></span></p>
+<p >Computer's Total win:<span id="com-total-win"></span></p>
+<p ><span class="player">name</span><span id="p-total-win"></span></p>
+
+</div>
+
+
+
+<script>
+
+const rock = document.querySelector(".rock");
+const scissor =  document.querySelector(".scissor");
+const paper = document.querySelector(".paper");
+const button = document.querySelector(".button");
+const computer = document.getElementById("computer");
+const btnStart = document.querySelector(".btn-start");
+const btnStart1 = document.querySelector(".btn-start1");
+const start = document.querySelector(".start");
+const reset = document.querySelector(".reset");
+const btnstop = document.querySelector(".btn-stop");
+const stop = document.querySelector(".stop");
+const display = document.querySelector(".result");
+const btn = document.querySelector(".button");
+let recordCu = document.querySelector(".record-computer");
+let recordMe = document.querySelector(".record-me");
+let positionMe = document.querySelector("#position-me");
+let positionCu = document.querySelector("#position-cu");
+let minutes = document.querySelector("#minutes");
+let seconds = document.querySelector("#count-down");
+const time = document.querySelector(".time");
+const flash = document.querySelector(".flash");
+const btnStat = document.querySelector(".btn-stats");
+const myScore = document.getElementById("my-score");
+const comScore = document.getElementById("com-score");
+const totalScore = document.getElementById("total-score");
+let scoreD = document.getElementById("score-d");
+const gameTime = document.getElementById("game-time");
+const gameTime1 = document.getElementById("game-time1");
+const winnerEnd = document.getElementById("winner-end");
+const stats = document.querySelector(".stats");
+const backG = document.querySelector(".btn-back");
+const gameD = document.querySelector(".btn-D-stat");
+const win = document.querySelector(".win");
+const screen = document.querySelector(".display"); 
+const me = document.querySelector(".me"); 
+let player = document.querySelector(".player"); 
+let ctw1 = document.getElementById("com-total-win"); 
+let ptw1 = document.getElementById("p-total-win");
+
+
+
+let ComS = 0; 
+let MyS = 0;
+
+let m = 0;
+let c = 0;
+
+let wc = 0;
+let mc = 0;
+
+let ts = 0;
+let cd = 0;
+let md = 0;
+ptw = 0;
+ctw = 0;
+
+
+
+var sec = -1;
+
+
+let hrs=min=sec=ms=0,startTimer;
+
+
+
+
+
+
+
+
+function updateDisplay(){
+//Formated Display
+phrs=hrs<10?'0'+hrs:hrs;
+pmin=min<10?'0'+min:min;
+psec=sec<10?'0'+sec:sec;
+pms=ms<10?'0'+ms:ms;
+//Output
+
+document.querySelector('#minutes').innerText=pmin;
+document.querySelector('#count-down').innerText=psec;
+document.querySelector('#ms').innerText=pms;
+}
+
+
+
+
+
+
+
+
+
+
+
+btnStart.addEventListener('click', ()=>{
+display.style.display = 'flex';
+btn.style.display = 'flex';
+start.style.display = 'none';
+reset.style.display = 'none'
+stop.style.display = 'flex';
+btnstop.style.display = 'none';
+btnStart1.style.display = 'block';
+computer.style.fontSize = '30px';
+flash.style.animation = 'none';
+positionMe.innerText = 'tie';
+positionCu.innerText = 'tie';
+positionMe.style.color= 'gray';
+positionCu.style.color= 'gray';
+me.innerText = prompt("Please enter player's name...,");
+if (me.innerText == null || me.innerText == ""){
+me.innerText = "PLAYER 1";
+}
+
+
+
+c=0;
+m=0;
+wc=0;
+mc=0;
+ts=0;
+
+
+
+
+
+clearInterval(startTimer);
+btn.style.display = 'none';
+
+
+updateDisplay();
+})
+
+btnStart1.addEventListener('click', ()=>{
+display.style.display = 'flex';
+btn.style.display = 'flex';
+start.style.display = 'none';
+reset.style.display = 'block'
+stop.style.display = 'flex';
+btnStart1.style.display = 'none';
+btnstop.style.display = 'block';
+document.getElementById('computer').innerText = `Start playing `;
+
+document.getElementById('score').innerText = ` `;
+computer.style.animation = 'scale 2s linear infinite';
+btnstop.style.color = 'red';             
+flash.style.display = 'block'; 
+flash.style.background = 'green';
+flash.style.animation = 'blink 2s';
+positionMe.innerText = 'tie';
+positionCu.innerText = 'tie';
+positionMe.style.color= 'gray';
+positionCu.style.color= 'gray';
+screen.style.animation = 'none ';
+recordCu.innerText = 0;
+recordMe.innerText =  0;
+c=0;
+m=0;
+mc=0;
+wc=0;   
+ts=0;  
+cd=0;
+md=0;       
+clearInterval(startTimer);  
+
+startTimer=setInterval(()=>{
+ms++;//ms=ms+1;
+
+if(ms==100){
+sec++;
+ms=0;
+}
+if(sec==60){
+min++;
+sec=0;
+}
+if(min==60){
+hrs++;
+min=0;
+}
+
+
+
+if(min >= 1 || sec > 30){
+time.style.color = 'red';
+flash.style.background = 'red';
+flash.style.animation = 'blink 250ms linear infinite';
+}
+
+if(min > 1 || sec <= 30){
+time.style.color = 'green';
+flash.style.background = 'yellow';
+flash.style.animation = 'blink 1s linear infinite';
+}
+
+if(min<1){
+time.style.color = 'green';
+flash.style.animation = 'blink 2s linear infinite';
+flash.style.animationDuration = '4s';
+flash.style.animationDelay = '4s';
+flash.style.background = 'green';
+}
+
+
+
+if(min === 2){
+
+button.style.display = 'none';
+btnstop.style.display = 'none';
+btnStart1.style.display = 'none';    
+clearInterval(startTimer);   
+computer.innerText = 'Time-out';
+flash.style.animation = 'blink 2s linear infinite';
+flash.style.background = 'yellow';
+recordCu.innerText=20;
+c=20;
+cd=20;
+
+if(recordCu.innerText == 20){
+ time.style.color = 'red'
+ document.getElementById('computer').innerText = `Game OVER`;
+ document.getElementById('score').innerText = `YOU LOST.`;
+ document.getElementById('position-cu').innerText = `Winner`;
+ document.getElementById('position-me').innerText = `Lost`;
+ positionMe.style.color = 'red';
+ positionCu.style.color = 'green';
+ winnerEnd.innerText = 'computer';
+ ctw+=1;
+}
+
+if(m == c ){
+score.innerText = 'Draw';
+screen.style.animation = 'draw 2.5s infinite ';
+}
+
+if(m < c ){
+score.innerText = 'You lost';
+screen.style.animation = 'losser 250ms infinite ';
+}
+
+}
+
+if(min === 2 & sec >= 0 & ms > 0){
+min = +0;
+startTimer=setInterval(()=>{
+ms++;//ms=ms+1;
+
+if(ms==100){
+sec++;
+ms=0;
+}
+if(sec==60){
+min++;
+sec=0;
+}
+if(min==60){
+hrs++;
+min=0;
+}
+
+
+clearInterval(startTimer);   
+
+if(min == 0){
+startTimer=setInterval(()=>{
+
+
+if(ms==100){
+sec++;
+ms=0;
+}
+if(sec==60){
+min++;
+sec=0;
+}
+if(min==60){
+hrs++;
+min=0;
+}    
+}) 
+}
+
+
+
+updateDisplay();
+},10);   
+}
+
+
+
+updateDisplay();
+},10);
+})
+
+btnstop.addEventListener('click', ()=>{
+display.style.display = 'none';
+btn.style.display = 'none';
+start.style.display = 'block';
+stop.style.display = 'none';
+ComS = null;
+MyS = null;
+recordCu.innerText = 0;
+recordMe.innerText =  0;
+positionMe.innerText = 'tie';
+positionCu.innerText = 'tie';
+positionMe.style.color= 'gray';
+positionCu.style.color= 'gray';
+screen.style.animation = 'none ';
+recordCu.innerText = 0;
+recordMe.innerText =  0;
+hrs=min=sec=ms=0;
+clearInterval(startTimer);
+c=0;
+m=0;
+wc=0;
+mc=0;
+ts=0;
+cd=0;
+md=0;
+
+
+document.getElementById('score').innerText = ``;
+
+btnStart.addEventListener('click', ()=>{          
+   computer.style.animation = 'scale 2s linear infinite';
+   computer.style.color = 'green';
+   computer.style.fontSize = '30px';
+   computer.style.opacity = '.6';
+   document.getElementById('computer').innerText = `Click start button`;
+   
+})
+
+
+
+})
+
+reset.addEventListener('click', ()=>{
+ComS = null;
+MyS = null;
+recordCu.innerText = 0;
+recordMe.innerText =  0;
+
+document.getElementById('computer').innerText = `Game Reseted`;
+document.getElementById('score').innerText = ``;
+
+
+positionMe.innerText = 'tie';
+positionCu.innerText = 'tie';
+positionMe.style.color= 'gray'
+positionCu.style.color= 'gray';
+btnStart1.style.display = 'block';
+btnstop.style.display = 'none';
+btnstop.style.color = 'red';
+flash.style.animation = 'none'; 
+flash.style.background = 'red'; 
+btn.style.display = 'none';
+screen.style.animation = 'none ';
+reset.style.display = 'none'
+hrs=min=sec=ms=0;
+clearInterval(startTimer);  
+updateDisplay();
+myScore.innerText =  recordCu.innerText ;
+comScore.innerText =  0 ;
+scoreD.innerText =  0 ;
+gameTime.innerText =  time.innerText ;
+c=0;
+m=0;
+mc=0;
+wc=0;
+ts=0;
+cd=0;
+md=0;
+
+})
+
+backG.addEventListener('click', ()=>{
+display.style.display = 'flex';
+btn.style.display = 'flex';
+stats.style.display = 'none';
+btnstop.style.display = 'block';
+btnStart1.style.display = 'none';
+// btnStart.style.display = 'none';
+reset.style.display = 'block';
+backG.style.display = 'none';
+gameD.style.display = 'block';
+
+if(sec < 1){
+ btn.style.display = 'none';
+ btnStart1.style.display = 'block';
+ reset.style.display = 'none'
+ btnstop.style.display = 'none';
+ c=0;
+ m=0;
+}
+
+if(min == 2){
+  btnStart1.style.display = 'none';
+  reset.style.display = 'block';
+}
+})
+
+gameD.addEventListener('click', ()=>{
+myScore.innerText = recordMe.innerText ;
+comScore.innerText = recordCu.innerText ;
+player.innerHTML = me.innerText + ' Total win:';
+ctw1.innerText = ctw;
+ptw1.innerText = ptw;
+
+
+if(ctw > ptw){
+  ptw1.style.color = 'red';
+  ctw1.style.color = 'green';
+};
+
+if(ptw > ctw){
+  ptw1.style.color = 'green';
+  ctw1.style.color = 'red';
+}
+
+ 
+if( cd > md){
+ scoreD.innerText = cd - md;
+ 
+
+};
+
+if(cd < md){
+  scoreD.innerText = md - cd;
+  
+};
+
+
+let mw = mc + wc;
+
+totalScore.innerText = ts;
+
+gameTime.innerText = minutes.innerText;
+gameTime1.innerText =  seconds.innerText; 
+
+
+display.style.display = 'none';
+btn.style.display = 'none';
+stats.style.display = 'block';
+btnstop.style.display = 'none';
+btnStart1.style.display = 'none';
+btnstop.style.display = 'none';
+gameD.style.display = 'none'
+reset.style.display = 'none';
+backG.style.display = 'block'
+if(min < 2){
+win.innerText = 'Winning: ' ;
+}
+
+
+
+
+if(wc > mc){
+ winnerEnd.innerText = 'Computer';
+ 
+} 
+if(mc > wc ){
+ winnerEnd.innerText = 'You';
+} 
+if(wc == mc){
+ winnerEnd.innerText = 'Draw';
+}; 
+
+if(winnerEnd.innerText == 'Computer'){
+ winnerEnd.style.color = 'red';
+ scoreD.style.color = 'red';
+}
+if(winnerEnd.innerText == 'Draw'){
+ winnerEnd.style.color = 'yellow';
+ scoreD.style.color = 'yellow';
+}
+if(winnerEnd.innerText == 'You'){
+ winnerEnd.style.color = 'green';
+ scoreD.style.color = 'green';
+}
+
+if(min == 2){
+  winnerEnd.innerText = 'Computer';
+}
+
+})
+
+
+
+
+paper.addEventListener('click', ()=>{
+const randon = Math.floor(Math.random() * 3);
+                                                                 
+if ( randon === 1 ){
+document.getElementById('score').innerText = `Draw`;
+document.getElementById('computer').innerText = `Paper`;
+score.style.color = 'yellow';
+computer.style.color = 'rgb(108, 14, 14)';
+computer.style.fontWeight = 'bold';
+
+
+}
+
+if ( randon === 0 ){
+document.getElementById('score').innerText = `Win.., Paper beats Rock `;
+document.getElementById('computer').innerText = `Rock`;
+
+recordMe.innerText = (MyS +=1);
+score.style.color = 'green';
+computer.style.color = 'green';
+computer.style.fontWeight = 'bold';
+m+=1;
+mc+=1;
+ts+=1;
+md+=1;
+}
+
+
+
+if ( randon === 2 ){
+document.getElementById('score').innerText = `lost.., Scissor beats Paper `;
+document.getElementById('computer').innerText = `Scissor`;
+score.style.color = 'red';
+computer.style.color = 'rgb(13, 13, 80)';
+computer.style.fontWeight = 'bold';
+recordCu.innerText = (ComS +=1);
+c+=1;
+wc+=1;
+ts+=1;
+cd+=1
+}      
+
+if ( m == c ){
+
+document.getElementById('position-cu').innerText = `Tie`;
+document.getElementById('position-me').innerText = `Tie`;
+positionMe.style.color = 'green';
+positionCu.style.color = 'green'; 
+} 
+
+if (m > c ){
+document.getElementById('position-cu').innerText = `loosing`;
+document.getElementById('position-me').innerText = `winning`;
+positionMe.style.color = 'green';
+positionCu.style.color = 'red';
+mc++;
+} 
+
+if (m < c ){
+document.getElementById('position-cu').innerText = `winning`;
+document.getElementById('position-me').innerText = `loosing`;
+positionMe.style.color = 'red';
+positionCu.style.color = 'green';
+wc++
+}   
+
+
+
+if (recordMe.innerText == 20){
+ComS = 0;
+MyS = 0;
+ptw+=1;
+
+m = 0;
+c = 0;
+hrs=min=sec=ms=0;
+clearInterval(startTimer);
+btnstop.style.display = 'none';
+btnStart1.style.display = 'none';
+button.style.display = 'none';
+btnStat.style.display = 'block';
+score.innerText = 'You won';
+screen.style.animation = 'winner 250ms infinite ';
+
+  
+document.getElementById('computer').innerText = `Game Ended`;
+document.getElementById('score').innerText = `congratulations.., You won.`;
+
+document.getElementById('position-cu').innerText = `lost`;
+document.getElementById('position-me').innerText = `Winner`;
+positionMe.style.color = 'green';
+positionCu.style.color = 'red';
+}
+
+if (recordCu.innerText == 20){
+ComS = 0;
+MyS = 0;
+ctw+=1;
+
+m = 0;
+c = 0;
+hrs=min=sec=ms=0;
+clearInterval(startTimer);
+btnstop.style.display = 'none';
+btnStart1.style.display = 'none';
+button.style.display = 'none';
+btnStat.style.display = 'block';
+screen.style.animation = 'losser 250ms infinite ';
+
+
+
+
+document.getElementById('computer').innerText = `Game OVER`;
+document.getElementById('score').innerText = `YOU LOST.`;
+document.getElementById('position-cu').innerText = `Winner`;
+document.getElementById('position-me').innerText = `Lost`;
+positionMe.style.color = 'red';
+positionCu.style.color = 'green';
+
+
+}
+
+
+
+
+
+})
+
+
+
+rock.addEventListener('click', ()=>{
+const randon = Math.floor(Math.random() * 3) 
+
+
+
+if ( 1 == 1 ){
+document.getElementById('computer').innerText = `Game Ended`;
+
+}
+
+
+if ( randon == 0 ){
+document.getElementById('score').innerText = `Draw `;
+document.getElementById('computer').innerText = `Rock`;
+score.style.color = 'yellow';
+computer.style.color = 'green';
+
+}
+if ( randon == 1 ){
+document.getElementById('score').innerText = `lost.., Paper beats Rock `;
+document.getElementById('computer').innerText = `Paper`;
+score.style.color = 'red';
+computer.style.color = 'rgb(108, 14, 14)';
+recordCu.innerText = (ComS +=1);
+c+=1;
+wc+=1
+ts+=1;
+cd+=1;
+
+}
+if ( randon == 2 ){
+document.getElementById('score').innerText = `Wins, Rock beats Scissor `;
+document.getElementById('computer').innerText = `Scissor`;
+computer.style.color = 'rgb(13, 13, 80)';
+score.style.color = 'green';
+recordMe.innerText = (MyS +=1);
+m+=1;
+mc+=1;
+ts+=1;
+md+=1;
+}
+
+if ( m === c ){
+
+document.getElementById('position-cu').innerText = `Tie`;
+document.getElementById('position-me').innerText = `Tie`;
+positionMe.style.color = 'green';
+positionCu.style.color = 'green'; 
+} 
+
+if ( m > c ){
+document.getElementById('position-cu').innerText = `loosing `;
+document.getElementById('position-me').innerText = `winning `;
+positionMe.style.color = 'green';
+positionCu.style.color = 'red';
+} 
+
+if ( m < c ){
+document.getElementById('position-cu').innerText = `winning`;
+document.getElementById('position-me').innerText = `loosing`;
+positionMe.style.color = 'red';
+positionCu.style.color = 'green';
+}   
+
+if (recordMe.innerText == 20){
+ComS = 0;
+MyS = 0;
+ptw+=1;
+
+  m = 0;
+c = 0;
+hrs=min=sec=ms=0;
+clearInterval(startTimer);
+btnstop.style.display = 'none';
+btnStart1.style.display = 'none';
+button.style.display = 'none';
+screen.style.animation = 'winner 250ms infinite ';
+
+
+document.getElementById('computer').innerText = `Game Ended`;
+document.getElementById('score').innerText = `congratulations.., You won.`;
+
+document.getElementById('position-cu').innerText = `lost`;
+document.getElementById('position-me').innerText = `Winner`;
+positionMe.style.color = 'green';
+positionCu.style.color = 'red';
+}
+
+if (recordCu.innerText == 20){
+ComS = 0;
+MyS = 0;
+ctw+=1;
+
+m = 0;
+c = 0;
+hrs=min=sec=ms=0;
+clearInterval(startTimer);
+btnstop.style.display = 'none';
+btnStart1.style.display = 'none';
+button.style.display = 'none';
+screen.style.animation = 'losser 250ms infinite ';
+
+
+
+document.getElementById('computer').innerText = `Game OVER`;
+document.getElementById('score').innerText = `YOU LOST.`;
+document.getElementById('position-cu').innerText = `Winner`;
+document.getElementById('position-me').innerText = `Lost`;
+positionMe.style.color = 'red';
+positionCu.style.color = 'green';
+}
+
+
+})
+
+
+
+scissor.addEventListener('click', ()=>{
+const randon = Math.floor(Math.random() * 3) 
+                            
+
+if ( randon == 2 ){
+document.getElementById('score').innerText = `Draw `
+document.getElementById('computer').innerText = `Scissor`;
+computer.style.color = 'rgb(13, 13, 80)';
+score.style.color = 'yellow';
+
+
+}
+if( randon == 0){
+document.getElementById('score').innerText = `Lost.., Rock beats Scissor `
+document.getElementById('computer').innerText = `Rock`;
+computer.style.color = 'green';
+score.style.color = 'red';
+recordCu.innerText = (ComS +=1);
+c+=1;
+wc+=1;
+ts+=1;
+cd+=1;
+}
+
+if( randon == 1){
+document.getElementById('score').innerText = `Wins, Scissor beats Paper `
+document.getElementById('computer').innerText = `Paper`;
+computer.style.color = 'rgb(108, 14, 14)';
+score.style.color = 'green';
+recordMe.innerText = (MyS +=1);
+m+=1;
+mc+=1;
+ts+=1;
+md+=1
+}
+
+if ( m == c ){
+
+document.getElementById('position-cu').innerText = `Tie`;
+document.getElementById('position-me').innerText = `Tie`;
+positionMe.style.color = 'green';
+positionCu.style.color = 'green'; 
+} 
+
+if (m > c ){
+document.getElementById('position-cu').innerText = `loosing`;
+document.getElementById('position-me').innerText = `winning`;
+positionMe.style.color = 'green';
+positionCu.style.color = 'red';
+} 
+
+if (m < c ){
+document.getElementById('position-cu').innerText = `winning`;
+document.getElementById('position-me').innerText = `loosing`;
+positionMe.style.color = 'red';
+positionCu.style.color = 'green';
+}   
+
+
+if (recordMe.innerText == 20){
+ComS = 0;
+MyS = 0;
+ptw+=1;
+
+  m = 0;
+c = 0;
+hrs=min=sec=ms=0;
+clearInterval(startTimer);
+btnstop.style.display = 'none';
+btnStart1.style.display = 'none';
+button.style.display = 'none';
+screen.style.animation = 'winner 250ms infinite ';
+
+
+document.getElementById('computer').innerText = `Game Ended`;
+document.getElementById('score').innerText = `congratulations.., You won.`;
+
+document.getElementById('position-cu').innerText = `lost`;
+document.getElementById('position-me').innerText = `Winner`;
+positionMe.style.color = 'green';
+positionCu.style.color = 'red';
+}
+
+if (recordCu.innerText == 20){
+ComS = 0;
+MyS = 0;
+ctw+=1;
+
+m = 0;
+c = 0;
+hrs=min=sec=ms=0;
+clearInterval(startTimer);
+btnstop.style.display = 'none';
+btnStart1.style.display = 'none';
+button.style.display = 'none';
+screen.style.animation = 'losser 250ms infinite ';
+
+document.getElementById('computer').innerText = `Game OVER`;
+document.getElementById('score').innerText = `YOU LOST.`;
+document.getElementById('position-cu').innerText = `Winner`;
+document.getElementById('position-me').innerText = `Lost`;
+positionMe.style.color = 'red';
+positionCu.style.color = 'green';
+}
+
+})
+
+
+
+
+
+
+
+
+
+
+const randon = Math.floor(Math.random() * 2) 
+console.log(randon)
+
+</script>
+</body>
+</html>
