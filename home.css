@@ -179,6 +179,7 @@ a:hover{
 }
 
 .header h1{
+ position: relative;
  color: var(--red);
  text-align: center;
  padding-inline: 1.5rem;
@@ -189,6 +190,7 @@ a:hover{
  font-size: clamp(2rem, 2.5vw, 3rem);
  margin-bottom: 2rem;
 }
+
 
 .header p{
  color: var(--red);
@@ -262,7 +264,7 @@ a:hover{
     grid-template-columns: 1fr 1fr; 
     max-width: 90%;
     margin-inline: auto;
-    /* overflow: hidden; */
+    margin-block: .5rem;
  }
  
 
@@ -274,6 +276,8 @@ a:hover{
     max-width: 95%;
     margin-block: 1rem;
     text-align: center;
+    box-shadow: 0 0 6px rgb(128, 128, 128, .4);
+    cursor: pointer;
 }
 
 .card:hover{
@@ -333,6 +337,7 @@ a:hover{
 
 .wrapper .product{
     margin: .5rem .8rem;
+    cursor: pointer;
 }
 
 .wrapper .product .image{
@@ -391,20 +396,28 @@ a:hover{
 
 .container_{
     margin-top: 2rem;
-    min-height: 100vw;
     background-color: var(--gray-dark);
 }
 
 .container_ .content{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     color: var(--gray);
+    text-align: center;
+    margin-block: 1rem;
+    color: var(--white);
+}
+
+.content h1{
+    font-size: 55px;
 }
 
 .content h4{
     color: var(--white);
-    margin-bottom: 1rem;
-    margin-top: 6rem;
+    font-size: clamp(18px, 5.5vw, 30px);
+    font-weight: 300;
+    margin-bottom: 3rem;
 }
 
 .latest{
@@ -420,6 +433,7 @@ a:hover{
     position: fixed;
     width: 100%;
     bottom: 0;
+    z-index: 100;
 }
 
 .footer_menu ul{
@@ -459,6 +473,21 @@ a:hover{
         display: grid;
         grid-template-columns: 1fr;
        }
+
+    .card_items{
+        display: grid;
+        grid-template-columns: 1fr;
+        margin-inline: auto;
+    }   
+    .card_items .card{
+        margin-inline: auto;
+        width: 100%;
+    }
+
+    .wrapper .container{
+        display: grid;
+        grid-template-columns: 1fr ;
+    }
 }
 
 @media (width < 30rem) {
@@ -492,7 +521,7 @@ a:hover{
 
  .wrapper .container{
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr ;
 }
  
 }
@@ -569,6 +598,11 @@ a:hover{
 
  .footer_menu{
     display: none;
+ }
+
+ .container_{
+    display: flex;
+    justify-content: space-around;
  }
  
 }
